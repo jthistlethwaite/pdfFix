@@ -63,6 +63,13 @@ else
 	exit `false`
 fi
 
+pdfPolicy=`identify -list policy | grep "PDF"`
+if [ $? -eq 1]; then
+	echo "WARNING.... imagemagick has a security policy for PDF documents."
+	echo "This script may not work, depending on your policy"
+	sleep 1
+fi
+
 for i in $@; do
 	input="$i"
 	fileName=`basename $i`
