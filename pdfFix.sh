@@ -48,19 +48,19 @@ fi
 CONVERT=`which convert`
 
 if [[ -x "$CONVERT" ]]; then
-	1=1
+	imagick=1
 else
 	echo "imagemagick not installed"
-	exit false
+	exit `false`
 fi
 
 PDFUNITE=`which pdfunite`
 
 if [[ -x "$PDFUNITE" ]]; then
- 1=1
+ pdfunite=1
 else
 	echo "poppler-utils not installed"
-	exit false
+	exit `false`
 fi
 
 for i in $@; do
