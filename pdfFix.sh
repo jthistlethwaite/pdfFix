@@ -64,7 +64,7 @@ else
 fi
 
 pdfPolicy=`identify -list policy | grep "PDF"`
-if [ $? -eq 1]; then
+if [ $? -eq 0 ]; then
 	echo "WARNING.... imagemagick has a security policy for PDF documents."
 	echo "This script may not work, depending on your policy"
 	sleep 1
