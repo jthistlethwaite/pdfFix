@@ -18,12 +18,13 @@ if [ "$carrier" == "DHL" ]; then
 		"$input" -quality 100 -trim  +repage -rotate "90" -resize 1200x1800 \
 		-extent 1200x1800 \
 		-font helvetica -pointsize 12 -draw "text 250,1700 'Order: $orderid'" \
+		-resample 150 \
 		"$output"
 
 elif [ "$carrier" == "USPS" ]; then
 	convert -density 300 -flatten -sharpen 0x1.0 \
 		"$input" -quality 100 -trim  +repage  -resize 1200x1800 \
-		-extent 1200x1800 \
+		-extent 1200x1800 -resample 150 \
 		"$output"
 
 elif [ "$carrier" == "FEDEX" ]; then
@@ -31,6 +32,7 @@ elif [ "$carrier" == "FEDEX" ]; then
 	convert -density 300 "$input" -rotate "-90" -crop 1600x2250+0+0 \
 		-resize 1200x1800 -extent 1200x1800 +repage \
 		-font helvetica -pointsize 12 -draw "text 250,1700 'Order: $orderid'" \
+		-resample 150 \
 		"$output"
 fi
 
@@ -115,6 +117,9 @@ for i in $@; do
 
 done
 
+if [[ -f "./merged.pdf" ]]; then
+	rm "./merged.pdf"
+fi
+
 cd 4x6/
-rm ../merged.pdf
 pdfunite ./*pdf ../merged.pdf
